@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -o upstream -d build"
@@ -47,9 +47,11 @@
     ]
   },
   "devDependencies": {
+    "@types/jest-plugin-context": "^2.9.5",
     "eslint": "^8.21.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "^4.0.0",
+    "jest-plugin-context": "^2.9.0",
     "prettier": "^2.7.1"
   }
 }
