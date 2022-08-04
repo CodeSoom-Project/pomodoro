@@ -10,6 +10,10 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('SelectModeContainer', () => {
   const renderSelectModeContainer = () => {
     return render(
@@ -30,6 +34,14 @@ describe('SelectModeContainer', () => {
     const { getByText } = renderSelectModeContainer();
 
     fireEvent.click(getByText('Focus'));
+
+    expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
+  });
+
+  it('Break로 이동합니다', () => {
+    const { getByText } = renderSelectModeContainer();
+
+    fireEvent.click(getByText('Break'));
 
     expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
   });
