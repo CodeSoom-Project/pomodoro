@@ -25,4 +25,10 @@ describe('App', () => {
 
     times.forEach(item => expect(container).toHaveTextContent(item));
   });
+
+  it('path가 /break 일 때', () => {
+    const { container } = renderApp('/break');
+
+    times.forEach(item => expect(container).toHaveTextContent(item));
+  });
 });
