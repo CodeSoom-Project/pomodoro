@@ -1,12 +1,21 @@
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 
 import App from './App';
 
 describe('App', () => {
-  it('버튼이 보여집니다.', () => {
-    const { getByText } = render(<App />);
+  const renderApp = (path: string) => {
+    return render(
+      <MemoryRouter initialEntries={[path]}>
+        <App />
+      </MemoryRouter>
+    );
+  };
 
-    expect(getByText('Focus')).not.toBeNull();
-    expect(getByText('Break')).not.toBeNull();
+  it('path가 / 일 때', () => {
+    const { container } = renderApp('/');
+
+    expect(container).toHaveTextContent('Focus');
+    expect(container).toHaveTextContent('Break');
   });
 });
