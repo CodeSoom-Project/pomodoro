@@ -6,6 +6,7 @@ import reset from 'styles/reset';
 
 import SelectMode from 'pages/SelectMode';
 import Focus from 'pages/Focus';
+import Break from 'pages/Break';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SelectMode />} />
         <Route path="/focus" element={<Focus />} />
+        <Route path="/break" element={<Break />} />
       </Routes>
     </>
   );
