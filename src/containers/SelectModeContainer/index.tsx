@@ -10,7 +10,7 @@ const SelectModeContainer = () => {
   return (
     <>
       <button onClick={() => handleNavigate('/focus')}>Focus</button>
-      <button>Break</button>
+      <button onClick={() => handleNavigate('/break')}>Break</button>
     </>
   );
 };
