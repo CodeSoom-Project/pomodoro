@@ -1,3 +1,5 @@
+import { Route, Routes } from 'react-router-dom';
+
 import { Global } from '@emotion/react';
 
 import SelectMode from 'pages/SelectMode';
@@ -8,7 +10,9 @@ function App() {
   return (
     <>
       <Global styles={reset} />
-      <SelectMode />
+      <Routes>
+        <Route path="/" element={<SelectMode />} />
+      </Routes>
     </>
   );
 }
