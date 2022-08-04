@@ -1,14 +1,22 @@
+import { Route, Routes } from 'react-router-dom';
+
 import { Global } from '@emotion/react';
 
-import SelectMode from 'pages/SelectMode';
-
 import reset from 'styles/reset';
+
+import SelectMode from 'pages/SelectMode';
+import Focus from 'pages/Focus';
+import Break from 'pages/Break';
 
 function App() {
   return (
     <>
       <Global styles={reset} />
-      <SelectMode />
+      <Routes>
+        <Route path="/" element={<SelectMode />} />
+        <Route path="/focus" element={<Focus />} />
+        <Route path="/break" element={<Break />} />
+      </Routes>
     </>
   );
 }
