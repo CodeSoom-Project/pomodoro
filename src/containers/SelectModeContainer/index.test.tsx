@@ -10,11 +10,14 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('SelectModeContainer', () => {
+  const dispatch = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    dispatch.mockClear();
+  });
   const renderSelectModeContainer = () => {
     return render(
       <MemoryRouter>
