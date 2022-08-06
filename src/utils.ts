@@ -15,3 +15,11 @@ export const convertToClock = (seconds: number): string => {
 
   return `${remainMinutes} : ${remainSeconds}`;
 };
+
+export const setEnd = (seconds: string): number => {
+  return Math.floor(new Date().getTime() / 1000 + Number(seconds) * 60);
+};
+
+export const setNow = () => {
+  return Math.floor(new Date().getTime() / 1000);
+};

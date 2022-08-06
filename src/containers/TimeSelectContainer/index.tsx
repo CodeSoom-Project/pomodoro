@@ -1,33 +1,26 @@
-import { FC, Fragment, useEffect } from 'react';
+import { FC, Fragment } from 'react';
 
-import { setEndTime, timer } from 'slice/time';
+import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { setEnd } from 'utils';
 interface Times {
   times: string[];
 }
 
 const TimeSelectContainer: FC<Times> = ({ times }) => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const end = Math.floor(new Date().getTime() / 1000 + 1500);
-
-  useEffect(() => {
-    setInterval(() => {
-      const now = Math.floor(new Date().getTime() / 1000);
-      dispatch(timer(now));
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    dispatch(setEndTime(end));
-  }, []);
+  const handleSetEnd = (seconds: string) => {
+    if (Number(seconds)) {
+      navigate('/viewtimes', { state: setEnd(seconds) });
+    }
+  };
 
   return (
     <>
       {times.map((time, idx) => (
         <Fragment key={idx}>
-          <button>{time}</button>
+          <button onClick={() => handleSetEnd(time)}>{time}</button>
         </Fragment>
       ))}
     </>
