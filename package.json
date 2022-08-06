@@ -59,5 +59,15 @@
     "prettier": "^2.7.1",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.4"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/reportWebVitals.ts",
+      "!src/index.tsx",
+      "!src/react-app-env.d.ts",
+      "!src/store/index.ts",
+      "!src/store/reducer.ts"
+    ]
   }
 }
