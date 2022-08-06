@@ -1,4 +1,4 @@
-import { get, equal, convertToClock } from 'utils';
+import { get, equal, convertToClock, setEnd, setNow } from 'utils';
 
 describe('utils', () => {
   const state = {
@@ -31,6 +31,20 @@ describe('utils', () => {
       it('해당 수를 분으로 바꾸어 반환합니다.', () => {
         expect(convertToClock(122)).toBe('02 : 02');
       });
+    });
+  });
+
+  describe('setEnd', () => {
+    it('인자가 넘겨지면 현재시간 + 인자를 반환합니다.', () => {
+      expect(setEnd('1500')).toBe(
+        Math.floor(new Date().getTime() / 1000 + 1500 * 60)
+      );
+    });
+  });
+
+  describe('setNow', () => {
+    it('timeStamp를 반환합니다.', () => {
+      expect(setNow()).toBe(Math.floor(new Date().getTime() / 1000));
     });
   });
 });
