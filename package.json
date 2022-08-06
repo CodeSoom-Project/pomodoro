@@ -57,7 +57,6 @@
     "gh-pages": "^4.0.0",
     "jest-plugin-context": "^2.9.0",
     "prettier": "^2.7.1",
-    "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.4"
   },
   "jest": {
