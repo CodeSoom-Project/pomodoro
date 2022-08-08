@@ -1,7 +1,7 @@
 import TimeButton from 'components/TimeButton';
 import { FC, Fragment } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { Times } from 'typings';
 
@@ -10,8 +10,24 @@ import { setEnd } from 'utils';
 const TimeSelectContainer: FC<Times> = ({ times }) => {
   const navigate = useNavigate();
 
-  const handleSetEnd = (seconds: string) => {
-    navigate('/viewtimes', { state: setEnd(seconds) });
+  const { pathname } = useLocation();
+
+  const navigateHandler = () => {
+    if (pathname === '/focus') {
+      navigate('/break');
+      return;
+    }
+
+    navigate('/focus');
+  };
+
+  const handleSetEnd = (selectedTime: string) => {
+    if (selectedTime === 'Skip') {
+      navigateHandler();
+      return;
+    }
+
+    navigate('/viewtimes', { state: setEnd(selectedTime) });
   };
 
   return (
