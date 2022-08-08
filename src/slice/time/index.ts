@@ -4,7 +4,7 @@ import { convertToClock } from 'utils';
 
 const initialState = {
   endTime: 0,
-  remainTime: '00:00',
+  remainTime: 'Loading',
 };
 
 const { actions, reducer } = createSlice({

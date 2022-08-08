@@ -10,6 +10,11 @@ export const convertToClock = (seconds: number): string => {
   if (seconds < 0) {
     return '00 : 00';
   }
+
+  if (isNaN(seconds)) {
+    return 'Loading';
+  }
+
   const remainSeconds = String(Math.floor(seconds % 60)).padStart(2, '0');
   const remainMinutes = String(Math.floor(seconds / 60)).padStart(2, '0');
 

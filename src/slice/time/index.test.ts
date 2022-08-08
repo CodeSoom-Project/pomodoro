@@ -4,7 +4,7 @@ describe('time', () => {
   describe('이전 상태가 정의되지 않은 경우', () => {
     const initialState = {
       endTime: 0,
-      remainTime: '00:00',
+      remainTime: 'Loading',
     };
 
     it('returns initialState', () => {
