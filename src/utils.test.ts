@@ -27,9 +27,16 @@ describe('utils', () => {
         expect(convertToClock(-1)).toBe('00 : 00');
       });
     });
+
     describe('인자로 양수가 넘겨지면', () => {
       it('해당 수를 분으로 바꾸어 반환합니다.', () => {
         expect(convertToClock(122)).toBe('02 : 02');
+      });
+    });
+
+    describe('인자로 NaN이 넘겨지면', () => {
+      it('Loading을 반환합니다.', () => {
+        expect(convertToClock(NaN)).toBe('Loading');
       });
     });
   });
