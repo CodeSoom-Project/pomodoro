@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const ViewTimesContainer = () => {
   const { remainTime } = useSelector((state: RootState) => state.time);
 
   const cleanUpRemainTime = () => {
-    dispatch(setEndTime(0));
+    dispatch(setEndTime('Loading'));
   };
 
   useEffect(() => {
@@ -32,6 +32,10 @@ const ViewTimesContainer = () => {
   useEffect(() => {
     dispatch(setEndTime(state));
   }, []);
+
+  if (remainTime === 'Loading') {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
