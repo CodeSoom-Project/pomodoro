@@ -1,26 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { convertToClock } from 'utils';
 
-const initialState = {
+import { EndTime, Timer, TimerState } from './types';
+
+const initialState: TimerState = {
   endTime: 0,
-  remainTime: 'Loading',
+  remainTime: '00:00',
 };
 
 const { actions, reducer } = createSlice({
   name: 'time',
   initialState,
   reducers: {
-    setEndTime: (state, action: any) => {
+    setEndTime: (
+      state,
+      { payload: { endTime, currentTime } }: PayloadAction<EndTime>
+    ) => {
       return {
         ...state,
-        endTime: action.payload,
+        endTime,
+        remainTime: convertToClock(endTime - currentTime),
       };
     },
-    timer: (state, action: any) => {
+    timer: (state, { payload: { currentTime } }: PayloadAction<Timer>) => {
       return {
         ...state,
-        remainTime: convertToClock(state.endTime - action.payload),
+        remainTime: convertToClock(state.endTime - currentTime),
       };
     },
   },

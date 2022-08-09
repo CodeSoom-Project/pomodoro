@@ -1,10 +1,11 @@
 import reducer, { setEndTime, timer } from '.';
+import { endTime } from 'fixtures/times';
 
 describe('time', () => {
   describe('이전 상태가 정의되지 않은 경우', () => {
     const initialState = {
       endTime: 0,
-      remainTime: 'Loading',
+      remainTime: '00:00',
     };
 
     it('returns initialState', () => {
@@ -21,9 +22,13 @@ describe('time', () => {
         remainTime: '00:00',
       };
 
-      const state = reducer(initialState, setEndTime(120));
+      const state = reducer(
+        initialState,
+        setEndTime({ endTime, currentTime: endTime - 25 * 60 })
+      );
 
-      expect(state.endTime).toEqual(120);
+      expect(state.endTime).toEqual(endTime);
+      expect(state.remainTime).toEqual('25 : 00');
     });
   });
 
@@ -34,7 +39,7 @@ describe('time', () => {
         remainTime: '00:00',
       };
 
-      const state = reducer(initialState, timer(0));
+      const state = reducer(initialState, timer({ currentTime: 0 }));
 
       expect(state.remainTime).toEqual('02 : 02');
     });
