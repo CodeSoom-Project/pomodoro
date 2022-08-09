@@ -4,43 +4,36 @@ import { useLocation } from 'react-router-dom';
 
 import { timer, setEndTime } from 'slice/time';
 
-import { setNow } from 'utils';
+import { currentTimestampSeconds } from 'utils';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store/reducer';
+import Time from 'components/Time';
 
 const ViewTimesContainer = () => {
   const dispatch = useDispatch();
 
-  const { state } = useLocation();
+  const { state } = useLocation() as { state: number };
 
   const { remainTime } = useSelector((state: RootState) => state.time);
 
-  const cleanUpRemainTime = () => {
-    dispatch(setEndTime('Loading'));
-  };
-
   useEffect(() => {
     setInterval(() => {
-      dispatch(timer(setNow()));
+      dispatch(timer({ currentTime: currentTimestampSeconds() }));
     }, 1000);
-
-    return () => cleanUpRemainTime();
   }, []);
 
   useEffect(() => {
-    dispatch(setEndTime(state));
+    dispatch(
+      setEndTime({ endTime: state, currentTime: currentTimestampSeconds() })
+    );
   }, []);
-
-  if (remainTime === 'Loading') {
-    return <p>Loading...</p>;
-  }
 
   return (
     <>
       <div>
-        <p>{remainTime}</p>
+        <Time remainTime={remainTime} />
       </div>
     </>
   );
