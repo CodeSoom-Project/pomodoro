@@ -19,10 +19,14 @@ const ViewTimesContainer = () => {
   const { remainTime } = useSelector((state: RootState) => state.time);
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       dispatch(timer({ currentTime: currentTimestampSeconds() }));
     }, 1000);
-  }, []);
+
+    if (remainTime === '00 : 00') {
+      clearInterval(intervalId);
+    }
+  }, [remainTime]);
 
   useEffect(() => {
     dispatch(
