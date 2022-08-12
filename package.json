@@ -67,7 +67,8 @@
       "!src/react-app-env.d.ts",
       "!src/store/index.ts",
       "!src/store/reducer.ts",
-      "!src/typings/*"
+      "!src/typings/*",
+      "!src/slice/time/types.ts"
     ]
   }
 }
