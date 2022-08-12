@@ -12,6 +12,8 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
 
   const { pathname } = useLocation();
 
+  const isFocus = pathname === '/focus';
+
   const navigateHandler = () => {
     if (pathname === '/focus') {
       navigate('/break');
@@ -22,7 +24,7 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
   };
 
   const handleSetEnd = (selectedTime: string) => {
-    if (selectedTime === 'Skip') {
+    if (selectedTime === 'Break' || selectedTime === 'Focus') {
       navigateHandler();
       return;
     }
@@ -37,6 +39,7 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
           <TimeButton time={time} onClick={handleSetEnd} />
         </Fragment>
       ))}
+      <TimeButton time={isFocus ? 'Break' : 'Focus'} onClick={handleSetEnd} />
     </>
   );
 };
