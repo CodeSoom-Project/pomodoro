@@ -1,4 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import CenterLayouts from 'styles/CenterLayouts';
+
+import ModeButtons from 'styles/ModeButtons';
 
 const SelectModeContainer = () => {
   const navigate = useNavigate();
@@ -8,10 +11,10 @@ const SelectModeContainer = () => {
   };
 
   return (
-    <>
-      <button onClick={() => handleNavigate('/focus')}>Focus</button>
-      <button onClick={() => handleNavigate('/break')}>Break</button>
-    </>
+    <CenterLayouts>
+      <ModeButtons onClick={() => handleNavigate('/focus')}>Focus</ModeButtons>
+      <ModeButtons onClick={() => handleNavigate('/break')}>Break</ModeButtons>
+    </CenterLayouts>
   );
 };
 
