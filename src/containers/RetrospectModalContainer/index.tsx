@@ -1,11 +1,14 @@
 import { FormEvent, useCallback, useState } from 'react';
 
-import styled from '@emotion/styled';
-
-import RetrospectModal from 'components/RetrospectModal';
+import { useNavigate } from 'react-router';
 
 import { useDispatch } from 'react-redux';
 import { addRetrospect } from 'slice/retrospect';
+import { setLocation } from 'slice/time';
+
+import styled from '@emotion/styled';
+
+import RetrospectModal from 'components/RetrospectModal';
 
 const CenterLayout = styled.div`
   display: flex;
@@ -23,11 +26,17 @@ const CenterLayout = styled.div`
 
 const RetrospectModalContiner = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [retrospect, setRetrospect] = useState({
     id: 0,
     contents: '',
   });
+
+  const handleNavigate = () => {
+    dispatch(setLocation('/break'));
+    navigate('/break');
+  };
 
   const handleChangeRetrospect = useCallback(
     (event: FormEvent<HTMLInputElement>) => {
@@ -41,7 +50,8 @@ const RetrospectModalContiner = () => {
 
   const handleSubmitRetrospect = useCallback(() => {
     dispatch(addRetrospect(retrospect));
-  }, [dispatch, retrospect]);
+    handleNavigate();
+  }, [dispatch, retrospect, handleNavigate]);
 
   return (
     <CenterLayout>
