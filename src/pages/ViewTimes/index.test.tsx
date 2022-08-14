@@ -22,6 +22,10 @@ describe('Break', () => {
             endTime: 0,
             remainTime: '00 : 00',
           },
+          retrospect: {
+            isEnd: false,
+            retrospect: [],
+          },
         })
     );
   });

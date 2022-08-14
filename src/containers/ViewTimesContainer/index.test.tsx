@@ -32,6 +32,10 @@ describe('ViewTimesContainer', () => {
             endTime: 0,
             remainTime: '01 : 00',
           },
+          retrospect: {
+            isEnd: true,
+            retrospect: [],
+          },
         })
     );
   });
@@ -70,5 +74,11 @@ describe('ViewTimesContainer', () => {
         }),
       { timeout: 2000 }
     );
+  });
+
+  it('isEnd가 True면 모달이 나타납니다.', () => {
+    const { container } = renderViewTimeContainer();
+
+    expect(container).toHaveTextContent('작성하기');
   });
 });

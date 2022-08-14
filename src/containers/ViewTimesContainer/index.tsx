@@ -2,13 +2,16 @@ import { useEffect } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store/reducer';
+
 import { timer, setEndTime } from 'slice/time';
+import { setTimeEnd } from 'slice/retrospect';
 
 import { currentTimestampSeconds } from 'utils';
 
-import { useDispatch, useSelector } from 'react-redux';
+import RetrospectModalContiner from 'containers/RetrospectModalContainer';
 
-import { RootState } from 'store/reducer';
 import Time from 'components/Time';
 
 const ViewTimesContainer = () => {
@@ -18,6 +21,8 @@ const ViewTimesContainer = () => {
 
   const { remainTime } = useSelector((state: RootState) => state.time);
 
+  const { isEnd } = useSelector((state: RootState) => state.retrospect);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       dispatch(timer({ currentTime: currentTimestampSeconds() }));
@@ -25,6 +30,7 @@ const ViewTimesContainer = () => {
 
     if (remainTime === '00 : 00') {
       clearInterval(intervalId);
+      dispatch(setTimeEnd(true));
     }
   }, [remainTime]);
 
@@ -39,6 +45,7 @@ const ViewTimesContainer = () => {
       <div>
         <Time remainTime={remainTime} />
       </div>
+      {isEnd && <RetrospectModalContiner />}
     </>
   );
 };
