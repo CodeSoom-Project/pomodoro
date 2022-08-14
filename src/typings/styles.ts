@@ -5,6 +5,10 @@ export interface ModeButton {
   onClick?: () => void;
 }
 
-export interface CenterLayout {
+export interface OnlyChildren {
   children: ReactNode;
+}
+
+export interface TimeSelectLayout extends OnlyChildren {
+  background: string;
 }
