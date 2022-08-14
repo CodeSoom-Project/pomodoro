@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { CenterLayout } from 'typings/styles';
+import { OnlyChildren } from 'typings/styles';
 
 const CenterLayoutStyle = styled.div({
   display: 'flex',
@@ -10,7 +10,7 @@ const CenterLayoutStyle = styled.div({
   background: '#D3E4CD',
 });
 
-const CenterLayouts: FC<CenterLayout> = ({ children }) => {
+const CenterLayouts: FC<OnlyChildren> = ({ children }) => {
   return <CenterLayoutStyle>{children}</CenterLayoutStyle>;
 };
 
