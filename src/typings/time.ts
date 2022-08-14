@@ -1,6 +1,7 @@
 export interface TimerState {
   endTime: number;
   remainTime: string;
+  location: string;
 }
 
 export interface EndTime {

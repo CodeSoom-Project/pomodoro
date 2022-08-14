@@ -2,6 +2,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import SelectModeContainer from '.';
+import { useDispatch } from 'react-redux';
 
 const mockedUsedNavigate = jest.fn();
 
@@ -16,8 +17,9 @@ describe('SelectModeContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    dispatch.mockClear();
+    (useDispatch as jest.Mock).mockImplementation(() => dispatch);
   });
+
   const renderSelectModeContainer = () => {
     return render(
       <MemoryRouter>

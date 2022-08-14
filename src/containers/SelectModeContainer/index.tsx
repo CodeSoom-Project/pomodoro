@@ -1,12 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import CenterLayouts from 'styles/CenterLayouts';
 
+import { useDispatch } from 'react-redux';
+import { setLocation } from 'slice/time';
+
+import CenterLayouts from 'styles/CenterLayouts';
 import ModeButtons from 'styles/ModeButtons';
 
 const SelectModeContainer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNavigate = (path: string) => {
+    dispatch(setLocation(path));
     navigate(`${path}`);
   };
 

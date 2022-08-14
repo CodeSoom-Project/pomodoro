@@ -31,6 +31,7 @@ describe('ViewTimesContainer', () => {
           time: {
             endTime: 0,
             remainTime: '01 : 00',
+            location: '/focus',
           },
           retrospect: {
             isEnd: true,
@@ -76,7 +77,7 @@ describe('ViewTimesContainer', () => {
     );
   });
 
-  it('isEnd가 True면 모달이 나타납니다.', () => {
+  it('isEnd가 True고 location이 "/focus"면 모달이 나타납니다.', () => {
     const { container } = renderViewTimeContainer();
 
     expect(container).toHaveTextContent('작성하기');

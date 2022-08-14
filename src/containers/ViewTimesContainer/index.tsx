@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducer';
 
-import { timer, setEndTime } from 'slice/time';
+import { timer, setEndTime, setLocation } from 'slice/time';
 import { setTimeEnd } from 'slice/retrospect';
 
 import { currentTimestampSeconds } from 'utils';
@@ -16,12 +16,17 @@ import Time from 'components/Time';
 
 const ViewTimesContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { state } = useLocation() as { state: number };
 
-  const { remainTime } = useSelector((state: RootState) => state.time);
+  const { remainTime, location } = useSelector(
+    (state: RootState) => state.time
+  );
 
   const { isEnd } = useSelector((state: RootState) => state.retrospect);
+
+  const abledModal = isEnd && location === '/focus';
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -31,6 +36,11 @@ const ViewTimesContainer = () => {
     if (remainTime === '00 : 00') {
       clearInterval(intervalId);
       dispatch(setTimeEnd(true));
+    }
+
+    if (location !== '/focus') {
+      dispatch(setLocation('/focus'));
+      navigate('/focus');
     }
   }, [remainTime]);
 
@@ -45,7 +55,7 @@ const ViewTimesContainer = () => {
       <div>
         <Time remainTime={remainTime} />
       </div>
-      {isEnd && <RetrospectModalContiner />}
+      {abledModal && <RetrospectModalContiner />}
     </>
   );
 };
