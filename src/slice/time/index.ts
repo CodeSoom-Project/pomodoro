@@ -7,6 +7,7 @@ import { EndTime, Timer, TimerState } from 'typings/time';
 const initialState: TimerState = {
   endTime: 0,
   remainTime: '00:00',
+  location: '',
 };
 
 const { actions, reducer } = createSlice({
@@ -29,9 +30,15 @@ const { actions, reducer } = createSlice({
         remainTime: convertToClock(state.endTime - currentTime),
       };
     },
+    setLocation: (state, { payload }) => {
+      return {
+        ...state,
+        location: payload,
+      };
+    },
   },
 });
 
-export const { setEndTime, timer } = actions;
+export const { setEndTime, timer, setLocation } = actions;
 
 export default reducer;

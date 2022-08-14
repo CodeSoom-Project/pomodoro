@@ -21,6 +21,7 @@ describe('Break', () => {
           time: {
             endTime: 0,
             remainTime: '00 : 00',
+            location: '',
           },
           retrospect: {
             isEnd: false,
