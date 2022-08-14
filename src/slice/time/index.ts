@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { convertToClock } from 'utils';
 
-import { EndTime, Timer, TimerState } from './types';
+import { EndTime, Timer, TimerState } from 'typings/time';
 
 const initialState: TimerState = {
   endTime: 0,
