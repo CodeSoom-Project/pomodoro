@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { ModeButton } from 'typings/styles';
 
 const ModeButtonsStyle = styled.button({
-  padding: '8rem',
-  margin: '0 4rem',
+  width: '50%',
+  padding: '1.5em .5rem',
+  margin: '0 1rem',
 
   borderRadius: '3rem',
   border: '.3rem solid #FEF5ED',
