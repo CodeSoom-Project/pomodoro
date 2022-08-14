@@ -1,4 +1,3 @@
-import TimeButton from 'components/TimeButton';
 import { FC, Fragment } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,6 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Times } from 'typings';
 
 import { setEnd } from 'utils';
+
+import TimeButton from 'components/TimeButton';
 
 const TimeSelectContainer: FC<Times> = ({ times }) => {
   const navigate = useNavigate();
