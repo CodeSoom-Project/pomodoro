@@ -8,8 +8,14 @@ import RetrospectModalContiner from '.';
 describe('RetrospectModalContainer', () => {
   const dispatch = jest.fn();
 
+  const handleSubmit = jest.fn();
+
   beforeEach(() => {
     (useDispatch as jest.Mock).mockImplementation(() => dispatch);
+
+    handleSubmit.mockImplementation(event => {
+      event.preventDefault();
+    });
   });
 
   const renderRetrospectModalContainer = () => {
@@ -36,7 +42,7 @@ describe('RetrospectModalContainer', () => {
   it('작성하기 버튼을 클릭하면 dispatch가 호출됩니다.', () => {
     const { getByText } = renderRetrospectModalContainer();
 
-    fireEvent.click(getByText('작성하기'));
+    fireEvent.submit(getByText('작성하기'));
 
     expect(dispatch).toBeCalledWith({
       type: 'retrospect/addRetrospect',
