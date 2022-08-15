@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducer';
-
-import { timer, setEndTime, setLocation } from 'slice/time';
-import { setTimeEnd } from 'slice/retrospect';
+import { useDispatch, useSelector } from 'react-redux';
+import { timer, setEndTime, setStatus } from 'slice/time';
 
 import { currentTimestampSeconds } from 'utils';
 
@@ -14,9 +12,13 @@ import RetrospectModalContiner from 'containers/RetrospectModalContainer';
 
 import Time from 'components/Time';
 
+import { Status } from 'typings/time';
+
 const ViewTimesContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const intervalId = useRef<NodeJS.Timer | undefined>(undefined);
 
   const { state } = useLocation() as { state: number };
 
@@ -24,25 +26,38 @@ const ViewTimesContainer = () => {
     (state: RootState) => state.time
   );
 
-  const { isEnd } = useSelector((state: RootState) => state.retrospect);
+  const { status } = useSelector((state: RootState) => state.time);
 
-  const abledModal = isEnd && location === '/focus';
+  const abledModal = status === 'end' && location === '/focus';
+
+  const endPomodoro = () => {
+    navigate('/retrospect');
+  };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    if (status !== Status.Initial) {
+      return;
+    }
+
+    intervalId.current = setInterval(() => {
       dispatch(timer({ currentTime: currentTimestampSeconds() }));
     }, 1000);
 
-    if (remainTime === '00 : 00') {
-      clearInterval(intervalId);
-      dispatch(setTimeEnd(true));
+    dispatch(setStatus(Status.Running));
+
+    return () => {
+      dispatch(setStatus(Status.Initial));
+      clearInterval(intervalId.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status !== Status.End) {
+      return;
     }
 
-    if (location !== '/focus') {
-      dispatch(setLocation('/focus'));
-      navigate('/focus');
-    }
-  }, [remainTime]);
+    clearInterval(intervalId.current);
+  }, [status]);
 
   useEffect(() => {
     dispatch(
@@ -53,7 +68,7 @@ const ViewTimesContainer = () => {
   return (
     <>
       <div>
-        <Time remainTime={remainTime} />
+        <Time remainTime={remainTime} endPomodoro={endPomodoro} />
       </div>
       {abledModal && <RetrospectModalContiner />}
     </>
