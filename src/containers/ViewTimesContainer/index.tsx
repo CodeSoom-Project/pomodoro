@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RootState } from 'store/reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { timer, setEndTime, setStatus } from 'slice/time';
+import { timer, setEndTime, setStatus, setLocation } from 'slice/time';
 
 import { currentTimestampSeconds } from 'utils';
 
@@ -18,6 +18,8 @@ const ViewTimesContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [abledModal, setAbledModal] = useState(false);
+
   const intervalId = useRef<NodeJS.Timer | undefined>(undefined);
 
   const { state } = useLocation() as { state: number };
@@ -27,8 +29,6 @@ const ViewTimesContainer = () => {
   );
 
   const { status } = useSelector((state: RootState) => state.time);
-
-  const abledModal = status === 'end' && location === '/focus';
 
   const endPomodoro = () => {
     navigate('/retrospect');
@@ -57,6 +57,10 @@ const ViewTimesContainer = () => {
     }
 
     clearInterval(intervalId.current);
+
+    return () => {
+      dispatch(setStatus(Status.Initial));
+    };
   }, [status]);
 
   useEffect(() => {
@@ -64,6 +68,17 @@ const ViewTimesContainer = () => {
       setEndTime({ endTime: state, currentTime: currentTimestampSeconds() })
     );
   }, []);
+
+  useEffect(() => {
+    if (status !== Status.End) return;
+
+    if (location === '/focus') {
+      return setAbledModal(true);
+    }
+
+    dispatch(setLocation('/focus'));
+    navigate('/focus');
+  }, [status]);
 
   return (
     <>
