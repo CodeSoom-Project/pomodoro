@@ -16,10 +16,15 @@ export interface SelectableTime {
 
 export interface RemainTime {
   remainTime: string;
+  endPomodoro?: () => void;
 }
 
 export interface RetrospectModalType {
   onChangeRetrospect?: Dispatch<SetStateAction<any>>;
   retrospect?: retrospect;
   submitRetrospect?: () => void;
+}
+
+export interface Retrospect {
+  retrospect: retrospect;
 }

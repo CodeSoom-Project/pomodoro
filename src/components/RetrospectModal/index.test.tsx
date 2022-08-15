@@ -24,7 +24,7 @@ describe('RetrospectModal', () => {
   it('작성하기 버튼을 누르면 handleSubmit이 호출됩니다.', () => {
     const { getByText } = renderRetrospectModal();
 
-    fireEvent.click(getByText('작성하기'));
+    fireEvent.submit(getByText('작성하기'));
 
     expect(handleSubmit).toBeCalled();
   });

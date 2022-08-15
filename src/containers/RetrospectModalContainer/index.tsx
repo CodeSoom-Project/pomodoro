@@ -35,6 +35,7 @@ const RetrospectModalContiner = () => {
 
   const handleNavigate = () => {
     dispatch(setLocation('/break'));
+
     navigate('/break');
   };
 

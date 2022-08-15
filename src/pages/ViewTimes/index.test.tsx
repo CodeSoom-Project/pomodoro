@@ -1,11 +1,13 @@
 import { render } from '@testing-library/react';
 
+import { RootState } from 'store/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MemoryRouter } from 'react-router-dom';
 
 import ViewTimes from '.';
-import { RootState } from 'store/reducer';
+
+import { Status } from 'typings/time';
 
 jest.mock('react-redux');
 
@@ -22,6 +24,7 @@ describe('Break', () => {
             endTime: 0,
             remainTime: '00 : 00',
             location: '',
+            status: Status.End,
           },
           retrospect: {
             isEnd: false,
