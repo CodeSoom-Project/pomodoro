@@ -2,6 +2,9 @@ import { FC, Fragment } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { setLocation } from 'slice/time';
+
 import { Times } from 'typings';
 
 import { setEnd } from 'utils';
@@ -10,6 +13,7 @@ import TimeButton from 'components/TimeButton';
 
 const TimeSelectContainer: FC<Times> = ({ times }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { pathname } = useLocation();
 
@@ -17,9 +21,13 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
 
   const navigateHandler = () => {
     if (pathname === '/focus') {
+      dispatch(setLocation('/break'));
+
       navigate('/break');
       return;
     }
+
+    dispatch(setLocation('/focus'));
 
     navigate('/focus');
   };

@@ -1,15 +1,20 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { times } from 'common/times';
-import { act } from 'react-dom/test-utils';
+
+import { useDispatch } from 'react-redux';
 
 import { MemoryRouter } from 'react-router-dom';
 
 import TimeSelectContainer from '.';
 
-jest.mock('react-redux');
-
 describe('TimeSelectContainer', () => {
+  const dispatch = jest.fn();
+
+  beforeEach(() => {
+    (useDispatch as jest.Mock).mockImplementation(() => dispatch);
+  });
+
   const renderTimeSelectContainer = ({ path }: any) => {
     return render(
       <MemoryRouter initialEntries={[path]}>
