@@ -8,6 +8,8 @@ import { MemoryRouter } from 'react-router-dom';
 import ViewTimes from '.';
 
 import { Status } from 'typings/time';
+import { initialState } from 'slice/time';
+import { retroSpectInitialState } from 'slice/retrospect';
 
 jest.mock('react-redux');
 
@@ -21,15 +23,11 @@ describe('Break', () => {
       (state: (arg: RootState) => void) =>
         state({
           time: {
-            endTime: 0,
-            remainTime: '00 : 00',
-            location: '',
+            ...initialState,
             status: Status.End,
+            isPause: true,
           },
-          retrospect: {
-            isEnd: false,
-            retrospect: [],
-          },
+          retrospect: retroSpectInitialState,
         })
     );
   });
