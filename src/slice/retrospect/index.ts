@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RetrospectState } from 'typings/retrospect';
 import { Retrospect } from 'typings/retrospect';
 
-const initialState: RetrospectState = {
+export const retroSpectInitialState: RetrospectState = {
   isEnd: false,
   retrospect: [],
 };
 
 const { actions, reducer } = createSlice({
   name: 'retrospect',
-  initialState,
+  initialState: retroSpectInitialState,
   reducers: {
     setTimeEnd: (state, { payload }) => {
       return {
