@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { convertToClock } from 'utils';
 
-import { EndTime, Timer, TimerState, Status } from 'typings/time';
+import { EndTime, Timer, TimerState, Status, Mode } from 'typings/time';
 
-const initialState: TimerState = {
+export const initialState: TimerState = {
   endTime: 0,
   remainTime: '00 : 00',
-  location: '',
+  pauseTime: 0,
+  mode: Mode.Focus,
   status: Status.Initial,
+  isPause: false,
 };
 
 const { actions, reducer } = createSlice({
@@ -40,11 +42,10 @@ const { actions, reducer } = createSlice({
         status: Status.Running,
       };
     },
-
-    setLocation: (state, { payload }) => {
+    setMode: (state, { payload }) => {
       return {
         ...state,
-        location: payload,
+        mode: payload,
       };
     },
     setStatus: (state, { payload }) => {
@@ -53,9 +54,24 @@ const { actions, reducer } = createSlice({
         status: payload,
       };
     },
+    setPause: (state, { payload }) => {
+      return {
+        ...state,
+        pauseTime: state.endTime - payload,
+        status: Status.Pause,
+        isPause: true,
+      };
+    },
+    setIsPause: (state, { payload }) => {
+      return {
+        ...state,
+        isPause: payload,
+      };
+    },
   },
 });
 
-export const { setEndTime, timer, setLocation, setStatus } = actions;
+export const { setEndTime, timer, setMode, setStatus, setPause, setIsPause } =
+  actions;
 
 export default reducer;
