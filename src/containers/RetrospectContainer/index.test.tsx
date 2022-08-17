@@ -6,24 +6,26 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import RetrospectContainer from '.';
 
-import { Status } from 'typings/time';
+import { Mode, Status } from 'typings/time';
+import { initialState } from 'slice/time';
+import { retroSpectInitialState } from 'slice/retrospect';
 
 describe('RetrospectContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
     (useDispatch as jest.Mock).mockImplementation(() => dispatch);
-
+    // running pause true
     (useSelector as jest.Mock).mockImplementation(
       (state: (arg: RootState) => void) =>
         state({
           time: {
-            endTime: 0,
-            remainTime: '01 : 00',
-            location: '/focus',
+            ...initialState,
             status: Status.Running,
+            isPause: true,
           },
           retrospect: {
+            ...retroSpectInitialState,
             isEnd: true,
             retrospect: [
               { id: 0, contents: '회고' },

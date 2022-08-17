@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import Retrospect from '.';
 
 import { Status } from 'typings/time';
+import { initialState } from 'slice/time';
+import { retroSpectInitialState } from 'slice/retrospect';
 
 describe('Retrospect', () => {
   beforeEach(() => {
@@ -13,14 +15,14 @@ describe('Retrospect', () => {
       (state: (arg: RootState) => void) =>
         state({
           time: {
-            endTime: 0,
-            remainTime: '01 : 00',
-            location: '/focus',
+            ...initialState,
+            isPause: true,
             status: Status.Running,
+            remainTime: '01 : 00',
           },
           retrospect: {
+            ...retroSpectInitialState,
             isEnd: true,
-            retrospect: [],
           },
         })
     );
