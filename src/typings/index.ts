@@ -17,6 +17,9 @@ export interface SelectableTime {
 export interface RemainTime {
   remainTime: string;
   endPomodoro?: () => void;
+  pause?: () => void;
+  resume?: () => void;
+  isPause?: boolean;
 }
 
 export interface RetrospectModalType {
