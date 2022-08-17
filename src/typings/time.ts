@@ -1,3 +1,8 @@
+export enum Mode {
+  Focus = '/focus',
+  Break = '/break',
+}
+
 export enum Status {
   Pause = 'pause',
   Resume = 'resume',
@@ -10,7 +15,9 @@ export enum Status {
 export interface TimerState {
   endTime: number;
   remainTime: string;
-  location: string;
+  pauseTime: number;
+  mode: Mode;
+  isPause: boolean;
   status: Status;
 }
 

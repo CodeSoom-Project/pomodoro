@@ -1,10 +1,7 @@
 import reducer, { addRetrospect, setTimeEnd } from '.';
+import { retroSpectInitialState as initialState } from './index';
 
 describe('retrospect', () => {
-  const initialState = {
-    isEnd: false,
-    retrospect: [],
-  };
   describe('이전 상태가 정의되지 않은 경우', () => {
     it('returns initial State', () => {
       const state = reducer(undefined, { type: 'action' });

@@ -15,10 +15,10 @@ describe('Time', () => {
     expect(container).toHaveTextContent('14 : 33');
   });
 
-  it('종료 버튼을 누르면 endPomodoro가 호출됩니다.', () => {
+  it('일정 종료 버튼을 누르면 endPomodoro가 호출됩니다.', () => {
     const { getByText } = renderTime();
 
-    fireEvent.click(getByText('종료'));
+    fireEvent.click(getByText('일정 종료'));
 
     expect(endPomodoro).toBeCalled();
   });

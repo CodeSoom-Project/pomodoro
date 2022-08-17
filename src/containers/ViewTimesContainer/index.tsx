@@ -1,38 +1,54 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RootState } from 'store/reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { timer, setEndTime, setStatus, setLocation } from 'slice/time';
+import {
+  timer,
+  setEndTime,
+  setStatus,
+  setMode,
+  setPause,
+  setIsPause,
+} from 'slice/time';
 
-import { currentTimestampSeconds } from 'utils';
+import { currentTimestampSeconds, setResumeTime } from 'utils';
 
 import RetrospectModalContiner from 'containers/RetrospectModalContainer';
 
 import Time from 'components/Time';
 
-import { Status } from 'typings/time';
+import { Mode, Status } from 'typings/time';
 
 const ViewTimesContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [abledModal, setAbledModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const intervalId = useRef<NodeJS.Timer | undefined>(undefined);
 
   const { state } = useLocation() as { state: number };
 
-  const { remainTime, location } = useSelector(
+  const { remainTime, mode, status, isPause, pauseTime } = useSelector(
     (state: RootState) => state.time
   );
-
-  const { status } = useSelector((state: RootState) => state.time);
 
   const endPomodoro = () => {
     navigate('/retrospect');
   };
+
+  const pause = useCallback(() => {
+    dispatch(setPause(currentTimestampSeconds()));
+
+    clearInterval(intervalId.current);
+  }, []);
+
+  const resume = useCallback(() => {
+    dispatch(setStatus(Status.Resume));
+    dispatch(setIsPause(false));
+  }, []);
 
   useEffect(() => {
     if (status !== Status.Initial) {
@@ -52,16 +68,28 @@ const ViewTimesContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (status !== Status.End) {
+    if (status !== Status.Resume) {
       return;
     }
 
-    clearInterval(intervalId.current);
+    intervalId.current = setInterval(() => {
+      dispatch(timer({ currentTime: currentTimestampSeconds() }));
+    }, 1000);
+
+    dispatch(
+      setEndTime({
+        endTime: setResumeTime(pauseTime.toString()),
+        currentTime: currentTimestampSeconds(),
+      })
+    );
+
+    dispatch(setStatus(Status.Running));
 
     return () => {
       dispatch(setStatus(Status.Initial));
+      clearInterval(intervalId.current);
     };
-  }, [status]);
+  }, [isPause]);
 
   useEffect(() => {
     dispatch(
@@ -70,22 +98,38 @@ const ViewTimesContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (status !== Status.End) return;
-
-    if (location === '/focus') {
-      return setAbledModal(true);
+    if (status !== Status.End) {
+      return;
     }
 
-    dispatch(setLocation('/focus'));
-    navigate('/focus');
+    if (mode === Mode.Focus) {
+      setOpenModal(true);
+      return;
+    }
+
+    // 이름 바꾸셈
+    dispatch(setMode(Mode.Focus));
+    navigate(Mode.Focus);
+
+    clearInterval(intervalId.current);
+
+    return () => {
+      dispatch(setStatus(Status.Initial));
+    };
   }, [status]);
 
   return (
     <>
       <div>
-        <Time remainTime={remainTime} endPomodoro={endPomodoro} />
+        <Time
+          remainTime={remainTime}
+          endPomodoro={endPomodoro}
+          pause={pause}
+          isPause={isPause}
+          resume={resume}
+        />
       </div>
-      {abledModal && <RetrospectModalContiner />}
+      {openModal && <RetrospectModalContiner />}
     </>
   );
 };

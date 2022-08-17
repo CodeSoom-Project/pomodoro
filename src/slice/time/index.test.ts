@@ -1,4 +1,11 @@
-import reducer, { setEndTime, setLocation, timer } from '.';
+import reducer, {
+  setEndTime,
+  setIsPause,
+  setMode,
+  setPause,
+  timer,
+  initialState,
+} from '.';
 
 import { endTime } from 'fixtures/times';
 
@@ -6,12 +13,6 @@ import { Status } from 'typings/time';
 import { setStatus } from 'slice/time';
 
 describe('time', () => {
-  const initialState = {
-    endTime: 0,
-    remainTime: '00 : 00',
-    location: '',
-    status: Status.Initial,
-  };
   describe('이전 상태가 정의되지 않은 경우', () => {
     it('returns initialState', () => {
       const state = reducer(undefined, { type: 'action' });
@@ -35,27 +36,19 @@ describe('time', () => {
   describe('timer', () => {
     describe('endTime이 currentTime보다 크면', () => {
       it('remainTime을 시간으로 변경합니다.', () => {
-        const initialState = {
-          endTime: 122,
-          remainTime: '00:00',
-          location: '',
-          status: Status.Initial,
-        };
-
-        const state = reducer(initialState, timer({ currentTime: 0 }));
+        const state = reducer(
+          {
+            ...initialState,
+            endTime: 122,
+          },
+          timer({ currentTime: 0 })
+        );
 
         expect(state.remainTime).toEqual('02 : 02');
       });
     });
     describe('endTIme이 currentTime보다 작으면', () => {
       it('status가 End상태로 변경됩니다.', () => {
-        const initialState = {
-          endTime: 122,
-          remainTime: '00:00',
-          location: '',
-          status: Status.Initial,
-        };
-
         const state = reducer(
           initialState,
           timer({ currentTime: endTime + 1 })
@@ -66,11 +59,11 @@ describe('time', () => {
     });
   });
 
-  describe('setLocation', () => {
+  describe('setMode', () => {
     it('현재 path를 저장합니다.', () => {
-      const state = reducer(initialState, setLocation('Focus'));
+      const state = reducer(initialState, setMode('Focus'));
 
-      expect(state.location).toEqual('Focus');
+      expect(state.mode).toEqual('Focus');
     });
   });
 
@@ -79,6 +72,33 @@ describe('time', () => {
       const state = reducer(initialState, setStatus(Status.Running));
 
       expect(state.status).toEqual(Status.Running);
+    });
+  });
+
+  describe('setPause', () => {
+    const endTime = 100;
+    const pauseTime = 50;
+
+    it('현재 상태와 정지 시간을 정해주고 상태를 업데이트합니다.', () => {
+      const state = reducer(
+        {
+          ...initialState,
+          endTime,
+        },
+        setPause(pauseTime)
+      );
+
+      expect(state.pauseTime).toEqual(endTime - pauseTime);
+      expect(state.status).toEqual(Status.Pause);
+      expect(state.isPause).toBe(true);
+    });
+  });
+
+  describe('setIsPause', () => {
+    it('정지 상태를 핸들링합니다.', () => {
+      const state = reducer(initialState, setIsPause(true));
+
+      expect(state.isPause).toBe(true);
     });
   });
 });

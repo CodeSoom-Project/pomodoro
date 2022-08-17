@@ -3,13 +3,14 @@ import { FC, Fragment } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { setLocation } from 'slice/time';
-
-import { Times } from 'typings';
+import { setMode } from 'slice/time';
 
 import { setEnd } from 'utils';
 
 import TimeButton from 'components/TimeButton';
+
+import { Times } from 'typings';
+import { Mode } from 'typings/time';
 
 const TimeSelectContainer: FC<Times> = ({ times }) => {
   const navigate = useNavigate();
@@ -17,19 +18,19 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
 
   const { pathname } = useLocation();
 
-  const isFocus = pathname === '/focus';
+  const isFocus = pathname === Mode.Focus;
 
   const navigateHandler = () => {
-    if (pathname === '/focus') {
-      dispatch(setLocation('/break'));
+    if (pathname === Mode.Focus) {
+      dispatch(setMode(Mode.Focus));
 
-      navigate('/break');
+      navigate(Mode.Break);
       return;
     }
 
-    dispatch(setLocation('/focus'));
+    dispatch(setMode(Mode.Focus));
 
-    navigate('/focus');
+    navigate(Mode.Focus);
   };
 
   const handleSetEnd = (selectedTime: string) => {
