@@ -16,3 +16,7 @@ export const setEnd = (seconds: string): number => {
 export const currentTimestampSeconds = (): number => {
   return Math.floor(new Date().getTime() / 1000);
 };
+
+export const setResumeTime = (seconds: string): number => {
+  return Math.floor(new Date().getTime() / 1000 + Number(seconds));
+};
