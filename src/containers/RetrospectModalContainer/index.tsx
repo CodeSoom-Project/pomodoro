@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router';
 
 import { useDispatch } from 'react-redux';
 import { addRetrospect } from 'slice/retrospect';
-import { setLocation } from 'slice/time';
+import { setMode } from 'slice/time';
 
 import styled from '@emotion/styled';
 
 import RetrospectModal from 'components/RetrospectModal';
+
+import { Mode } from 'typings/time';
 
 const CenterLayout = styled.div`
   display: flex;
@@ -34,9 +36,9 @@ const RetrospectModalContiner = () => {
   });
 
   const handleNavigate = () => {
-    dispatch(setLocation('/break'));
+    dispatch(setMode(Mode.Break));
 
-    navigate('/break');
+    navigate(Mode.Break);
   };
 
   const handleChangeRetrospect = useCallback(
