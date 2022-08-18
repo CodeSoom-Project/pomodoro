@@ -102,6 +102,30 @@ describe('ViewTimesContainer', () => {
 
       expect(container).toHaveTextContent('작성하기');
     });
+
+    it('휴식하기를 누르면 navigate가 호출됩니다.', () => {
+      (useSelector as jest.Mock).mockImplementation(
+        (state: (arg: RootState) => void) =>
+          state({
+            time: {
+              ...initialState,
+              mode: Mode.Focus,
+              status: Status.Pause,
+              isPause: true,
+            },
+            retrospect: {
+              ...retroSpectInitialState,
+              isEnd: false,
+            },
+          })
+      );
+
+      const { getByText } = renderViewTimeContainer();
+
+      fireEvent.click(getByText('휴식하기'));
+
+      expect(mockedUsedNavigate).toHaveBeenCalledWith(Mode.Break);
+    });
   });
 
   describe('isEnd 상태이며 mode가 Break일 때', () => {
@@ -128,9 +152,48 @@ describe('ViewTimesContainer', () => {
         type: 'time/setMode',
       });
     });
+
+    it('집중하기를 누르면 navigate가 호출됩니다.', () => {
+      (useSelector as jest.Mock).mockImplementation(
+        (state: (arg: RootState) => void) =>
+          state({
+            time: {
+              ...initialState,
+              mode: Mode.Break,
+              status: Status.Pause,
+              isPause: true,
+            },
+            retrospect: {
+              ...retroSpectInitialState,
+              isEnd: true,
+            },
+          })
+      );
+
+      const { getByText } = renderViewTimeContainer();
+
+      fireEvent.click(getByText('집중하기'));
+
+      expect(mockedUsedNavigate).toHaveBeenCalledWith(Mode.Focus);
+    });
   });
 
   it('일정 종료 버튼을 누르면 endPomodoro가 호출됩니다.', () => {
+    (useSelector as jest.Mock).mockImplementation(
+      (state: (arg: RootState) => void) =>
+        state({
+          time: {
+            ...initialState,
+            mode: Mode.Focus,
+            status: Status.End,
+            isPause: true,
+          },
+          retrospect: {
+            ...retroSpectInitialState,
+            isEnd: true,
+          },
+        })
+    );
     const { getByText } = renderViewTimeContainer();
 
     fireEvent.click(getByText('일정 종료'));
