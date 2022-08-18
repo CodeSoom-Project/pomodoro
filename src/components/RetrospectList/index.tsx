@@ -1,11 +1,21 @@
 import { FC } from 'react';
 
+import styled from '@emotion/styled';
+
 import { Retrospect } from 'typings';
 
-const RetrospectList: FC<Retrospect> = ({ retrospect }) => {
+const P = styled.p`
+  margin-bottom: 1rem;
+  overflow-x: hidden;
+  word-break: break-all;
+`;
+
+const RetrospectList: FC<Retrospect> = ({ retrospect, id }) => {
   return (
     <>
-      <p>{retrospect.contents}</p>
+      <P>
+        {id + 1}. {retrospect.contents}
+      </P>
     </>
   );
 };
