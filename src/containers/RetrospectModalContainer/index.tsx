@@ -8,22 +8,34 @@ import { setMode } from 'slice/time';
 
 import styled from '@emotion/styled';
 
-import RetrospectModal from 'components/RetrospectModal';
+import RetrospectModalForm from 'components/RetrospectModalForm';
 
 import { Mode } from 'typings/time';
 
+import { fadeIn } from 'animation/fade';
+
 const CenterLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
 
   width: 40em;
-  margin: 20rem auto;
+  max-width: 90%;
   padding: 3rem;
 
-  border: 2px solid black;
+  border: 2px solid #ca955c;
   border-radius: 2rem;
-  z-index: 4;
+
+  background-color: #eddfb3;
+  z-index: 5;
+
+  animation: ${fadeIn} 1s ease;
+
+  & > div {
+    text-align: center;
+    color: #ca955c;
+  }
 `;
 
 const RetrospectModalContiner = () => {
@@ -60,7 +72,7 @@ const RetrospectModalContiner = () => {
     <CenterLayout>
       <div>
         <h1>집중 시간동안 어떤 것을 하셨나요?</h1>
-        <RetrospectModal
+        <RetrospectModalForm
           onChangeRetrospect={handleChangeRetrospect}
           submitRetrospect={handleSubmitRetrospect}
           retrospect={retrospect}
