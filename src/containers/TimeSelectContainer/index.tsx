@@ -22,7 +22,7 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
 
   const navigateHandler = () => {
     if (pathname === Mode.Focus) {
-      dispatch(setMode(Mode.Focus));
+      dispatch(setMode(Mode.Break));
 
       navigate(Mode.Break);
       return;
@@ -43,14 +43,14 @@ const TimeSelectContainer: FC<Times> = ({ times }) => {
   };
 
   return (
-    <>
+    <div style={{ maxWidth: '25rem' }}>
       {times.map((time, idx) => (
         <Fragment key={idx}>
           <TimeButton time={time} onClick={handleSetEnd} />
         </Fragment>
       ))}
       <TimeButton time={isFocus ? 'Break' : 'Focus'} onClick={handleSetEnd} />
-    </>
+    </div>
   );
 };
 
