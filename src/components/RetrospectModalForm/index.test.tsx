@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import RetrospectModal from '.';
+import RetrospectModalForm from '.';
 
 describe('RetrospectModal', () => {
   const handleSubmit = jest.fn();
@@ -12,7 +12,7 @@ describe('RetrospectModal', () => {
   });
 
   const renderRetrospectModal = () => {
-    return render(<RetrospectModal submitRetrospect={handleSubmit} />);
+    return render(<RetrospectModalForm submitRetrospect={handleSubmit} />);
   };
 
   it('Input이 보여집니다.', () => {

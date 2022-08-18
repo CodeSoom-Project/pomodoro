@@ -3,17 +3,17 @@ import { times } from 'common/times';
 import TimeSelectContainer from 'containers/TimeSelectContainer';
 import ButtonWrapper from 'styles/ButtonWrapper';
 
-import TimeSelectHeaders from 'styles/TimeSelectHeaders';
-import TimeSelectLayouts from 'styles/TimeSelectLayouts';
+import Header from 'styles/Header';
+import Layouts from 'styles/Layouts';
 
 const Focus = () => {
   return (
-    <TimeSelectLayouts background="#76BA99">
-      <TimeSelectHeaders>Focus</TimeSelectHeaders>
+    <Layouts background="#76BA99">
+      <Header>Focus</Header>
       <ButtonWrapper>
         <TimeSelectContainer times={times} />
       </ButtonWrapper>
-    </TimeSelectLayouts>
+    </Layouts>
   );
 };
 

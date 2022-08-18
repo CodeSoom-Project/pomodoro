@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
+import { Mode } from './time';
+
 type retrospect = {
   id: number;
   contents: string;
@@ -19,10 +21,12 @@ export interface RemainTime {
   endPomodoro?: () => void;
   pause?: () => void;
   resume?: () => void;
+  navigator?: () => void;
   isPause?: boolean;
+  mode: Mode;
 }
 
-export interface RetrospectModalType {
+export interface RetrospectForm {
   onChangeRetrospect?: Dispatch<SetStateAction<any>>;
   retrospect?: retrospect;
   submitRetrospect?: () => void;
@@ -30,4 +34,5 @@ export interface RetrospectModalType {
 
 export interface Retrospect {
   retrospect: retrospect;
+  id: number;
 }

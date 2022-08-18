@@ -21,7 +21,10 @@ const Button = styled.button({
 
   '&:hover': {
     fontSize: '1.5rem',
+
     color: '#876445',
+
+    transition: 'all ease 0.4s',
   },
 });
 

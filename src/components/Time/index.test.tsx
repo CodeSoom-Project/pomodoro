@@ -1,12 +1,21 @@
 import { render, fireEvent } from '@testing-library/react';
 
+import { Mode } from 'typings/time';
+
 import Time from '.';
 
 describe('Time', () => {
   const endPomodoro = jest.fn();
 
   const renderTime = () => {
-    return render(<Time remainTime="14 : 33" endPomodoro={endPomodoro} />);
+    return render(
+      <Time
+        remainTime="14 : 33"
+        endPomodoro={endPomodoro}
+        mode={Mode.Focus}
+        isPause={true}
+      />
+    );
   };
 
   it('전달받은 시간이 렌더링 됩니다.', () => {

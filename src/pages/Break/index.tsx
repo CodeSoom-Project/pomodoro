@@ -2,18 +2,18 @@ import { times } from 'common/times';
 
 import TimeSelectContainer from 'containers/TimeSelectContainer';
 
-import TimeSelectHeaders from 'styles/TimeSelectHeaders';
-import TimeSelectLayouts from 'styles/TimeSelectLayouts';
+import Header from 'styles/Header';
+import Layouts from 'styles/Layouts';
 import ButtonWrapper from 'styles/ButtonWrapper';
 
 const Break = () => {
   return (
-    <TimeSelectLayouts background="#876445">
-      <TimeSelectHeaders>Break</TimeSelectHeaders>
+    <Layouts background="#876445">
+      <Header>Break</Header>
       <ButtonWrapper>
         <TimeSelectContainer times={times} />
       </ButtonWrapper>
-    </TimeSelectLayouts>
+    </Layouts>
   );
 };
 

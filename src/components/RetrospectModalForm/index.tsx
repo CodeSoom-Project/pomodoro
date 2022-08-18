@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { RetrospectModalType } from 'typings';
+import { RetrospectForm } from 'typings';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,21 +11,32 @@ const Wrapper = styled.div`
 
 const TextArea = styled.textarea`
   width: 30em;
+  max-width: 80%;
   height: 80%;
   margin-top: 2rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 2rem;
+  border: 1px solid #ca995c;
   resize: none;
+  outline: none;
+  color: #876445;
+
+  ::placeholder {
+    color: #ca995c;
+  }
 `;
 
 const Button = styled.button`
   display: block;
-  margin: auto;
+  margin: 0.5rem auto;
   padding: 1rem;
   border-radius: 1em;
+  border: 1px solid #ca995c;
+  color: white;
+  background: #876445;
 `;
 
-const RetrospectModal: FC<RetrospectModalType> = ({
+const RetrospectModalForm: FC<RetrospectForm> = ({
   onChangeRetrospect,
   submitRetrospect,
   retrospect,
@@ -44,4 +55,4 @@ const RetrospectModal: FC<RetrospectModalType> = ({
   );
 };
 
-export default RetrospectModal;
+export default RetrospectModalForm;

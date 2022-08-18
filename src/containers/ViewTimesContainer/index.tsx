@@ -50,6 +50,17 @@ const ViewTimesContainer = () => {
     dispatch(setIsPause(false));
   }, []);
 
+  const navigateHandler = useCallback(() => {
+    if (mode === Mode.Focus) {
+      dispatch(setMode(Mode.Break));
+      navigate(Mode.Break);
+      return;
+    }
+
+    dispatch(setMode(Mode.Focus));
+    navigate(Mode.Focus);
+  }, [Mode]);
+
   useEffect(() => {
     if (status !== Status.Initial) {
       return;
@@ -114,6 +125,7 @@ const ViewTimesContainer = () => {
 
     return () => {
       dispatch(setStatus(Status.Initial));
+      setOpenModal(false);
     };
   }, [status]);
 
@@ -125,11 +137,13 @@ const ViewTimesContainer = () => {
     <>
       <div>
         <Time
+          mode={mode}
           remainTime={remainTime}
           endPomodoro={endPomodoro}
           pause={pause}
           isPause={isPause}
           resume={resume}
+          navigator={navigateHandler}
         />
       </div>
       {openModal && <RetrospectModalContiner />}

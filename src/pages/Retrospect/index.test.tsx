@@ -8,9 +8,17 @@ import Retrospect from '.';
 import { Status } from 'typings/time';
 import { initialState } from 'slice/time';
 import { retroSpectInitialState } from 'slice/retrospect';
+import { MemoryRouter } from 'react-router';
 
 describe('Retrospect', () => {
+  const mockedUsedNavigate = jest.fn();
+
   beforeEach(() => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useNavigate: () => mockedUsedNavigate,
+    }));
+
     (useSelector as jest.Mock).mockImplementation(
       (state: (arg: RootState) => void) =>
         state({
@@ -29,8 +37,12 @@ describe('Retrospect', () => {
   });
 
   it('헤더가 나타납니다.', () => {
-    const { container } = render(<Retrospect />);
+    const { container } = render(
+      <MemoryRouter>
+        <Retrospect />
+      </MemoryRouter>
+    );
 
-    expect(container).toHaveTextContent('오늘의 회고 목록');
+    expect(container).toHaveTextContent("Today's");
   });
 });

@@ -9,6 +9,6 @@ export interface OnlyChildren {
   children: ReactNode;
 }
 
-export interface TimeSelectLayout extends OnlyChildren {
+export interface Layout extends OnlyChildren {
   background: string;
 }
