@@ -107,7 +107,6 @@ const ViewTimesContainer = () => {
       return;
     }
 
-    // 이름 바꾸셈
     dispatch(setMode(Mode.Focus));
     navigate(Mode.Focus);
 
@@ -117,6 +116,10 @@ const ViewTimesContainer = () => {
       dispatch(setStatus(Status.Initial));
     };
   }, [status]);
+
+  useEffect(() => {
+    dispatch(setIsPause(false));
+  }, []);
 
   return (
     <>
