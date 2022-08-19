@@ -1,5 +1,3 @@
-import { times } from 'common/times';
-
 import TimeSelectContainer from 'containers/TimeSelectContainer';
 
 import Header from 'styles/Header';
@@ -11,7 +9,7 @@ const Break = () => {
     <Layouts background="#876445">
       <Header>Break</Header>
       <ButtonWrapper>
-        <TimeSelectContainer times={times} />
+        <TimeSelectContainer />
       </ButtonWrapper>
     </Layouts>
   );

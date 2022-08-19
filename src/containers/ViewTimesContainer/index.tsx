@@ -29,8 +29,6 @@ const ViewTimesContainer = () => {
 
   const intervalId = useRef<NodeJS.Timer | undefined>(undefined);
 
-  const htmlTitle = document.querySelector('title') as HTMLTitleElement;
-
   const { state } = useLocation() as { state: number };
 
   const { remainTime, mode, status, isPause, pauseTime } = useSelector(
@@ -70,7 +68,6 @@ const ViewTimesContainer = () => {
 
     intervalId.current = setInterval(() => {
       dispatch(timer({ currentTime: currentTimestampSeconds() }));
-      htmlTitle.innerHTML = remainTime;
     }, 1000);
 
     dispatch(setStatus(Status.Running));
@@ -78,6 +75,7 @@ const ViewTimesContainer = () => {
     return () => {
       dispatch(setStatus(Status.Initial));
       clearInterval(intervalId.current);
+      document.title = 'pomodoro';
     };
   }, []);
 
@@ -102,6 +100,7 @@ const ViewTimesContainer = () => {
     return () => {
       dispatch(setStatus(Status.Initial));
       clearInterval(intervalId.current);
+      document.title = 'pomodoro';
     };
   }, [isPause]);
 
@@ -137,12 +136,12 @@ const ViewTimesContainer = () => {
   }, []);
 
   useEffect(() => {
-    htmlTitle.innerHTML = remainTime;
+    document.title = remainTime;
   }, [remainTime]);
 
   return (
     <>
-      <div>
+      <>
         <Time
           mode={mode}
           remainTime={remainTime}
@@ -152,7 +151,7 @@ const ViewTimesContainer = () => {
           resume={resume}
           navigator={navigateHandler}
         />
-      </div>
+      </>
       {openModal && <RetrospectModalContiner />}
     </>
   );

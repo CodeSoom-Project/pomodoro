@@ -19,6 +19,7 @@ export interface TimerState {
   mode: Mode;
   isPause: boolean;
   status: Status;
+  times: string[];
 }
 
 export interface EndTime {

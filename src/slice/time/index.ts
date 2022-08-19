@@ -11,6 +11,7 @@ export const initialState: TimerState = {
   mode: Mode.Focus,
   status: Status.Initial,
   isPause: false,
+  times: ['5', '10', '15', '20', '25'],
 };
 
 const { actions, reducer } = createSlice({
@@ -68,10 +69,23 @@ const { actions, reducer } = createSlice({
         isPause: payload,
       };
     },
+    setTimes: (state, { payload }) => {
+      return {
+        ...state,
+        times: [...state.times, payload],
+      };
+    },
   },
 });
 
-export const { setEndTime, timer, setMode, setStatus, setPause, setIsPause } =
-  actions;
+export const {
+  setEndTime,
+  timer,
+  setMode,
+  setStatus,
+  setPause,
+  setIsPause,
+  setTimes,
+} = actions;
 
 export default reducer;
