@@ -12,7 +12,7 @@ import RetrospectList from 'components/RetrospectList';
 const RetrospectBox = styled.div`
   width: 40rem;
   max-width: 80%;
-  height: 60%;
+  height: 50vh;
 
   padding: 2rem;
 
