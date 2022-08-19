@@ -5,6 +5,7 @@ import reducer, {
   setPause,
   timer,
   initialState,
+  setTimes,
 } from '.';
 
 import { endTime } from 'fixtures/times';
@@ -99,6 +100,14 @@ describe('time', () => {
       const state = reducer(initialState, setIsPause(true));
 
       expect(state.isPause).toBe(true);
+    });
+  });
+
+  describe('setTimes', () => {
+    it('시간이 추가됩니다.', () => {
+      const state = reducer(initialState, setTimes('40'));
+
+      expect(state.times).toEqual(['5', '10', '15', '20', '25', '40']);
     });
   });
 });
