@@ -4,7 +4,9 @@ import { FC } from 'react';
 
 import { TimeAddFormType } from 'typings';
 
-const Wrapper = styled.div`
+import { Mode } from 'typings/time';
+
+const Wrapper = styled.div<{ mode: Mode }>`
   display: flex;
   justify-content: center;
 
@@ -13,7 +15,7 @@ const Wrapper = styled.div`
 
     border: none;
 
-    background: #6aa789;
+    background: ${props => (props.mode === Mode.Focus ? '#6aa789' : '#795a3e')};
     caret-color: whitesmoke;
     color: whitesmoke;
 
@@ -40,13 +42,18 @@ const Wrapper = styled.div`
     border: none;
 
     background: whitesmoke;
-    color: #6aa789;
+    color: ${props => (props.mode === Mode.Focus ? '#6aa789' : '#795a3e')};
   }
 `;
 
-const TimeAddForm: FC<TimeAddFormType> = ({ addTime, onChange, onClick }) => {
+const TimeAddForm: FC<TimeAddFormType> = ({
+  addTime,
+  onChange,
+  onClick,
+  mode,
+}) => {
   return (
-    <Wrapper>
+    <Wrapper mode={mode}>
       <input
         value={addTime}
         placeholder="시간(분)을 입력해주세요."
