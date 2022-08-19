@@ -15,13 +15,16 @@ import { Mode } from 'typings/time';
 import { fadeIn } from 'animation/fade';
 
 const CenterLayout = styled.div`
-  position: fixed;
+  position: absolute;
   top: 25%;
   left: 50%;
   transform: translateX(-50%);
 
+  min-width: 10em;
   width: 40em;
   max-width: 90%;
+  height: 50%;
+  min-height: 32em;
   padding: 3rem;
 
   border: 2px solid #ca955c;
