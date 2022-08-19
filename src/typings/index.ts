@@ -35,6 +35,7 @@ export interface Retrospect {
 
 export interface TimeAddFormType {
   addTime: string;
+  mode: Mode;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick: (time: string) => void;
 }

@@ -1,19 +1,20 @@
-import React, { FC, Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 import styled from '@emotion/styled';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store/reducer';
+
 import { setMode, setTimes } from 'slice/time';
 
 import { setEnd } from 'utils';
 
+import TimeAddForm from 'components/TimeAddForm';
 import TimeButton from 'components/TimeButton';
 
 import { Mode } from 'typings/time';
-import TimeAddForm from 'components/TimeAddForm';
-import { RootState } from 'store/reducer';
 
 const Wrapper = styled.div`
   max-width: 25rem;
@@ -29,7 +30,7 @@ const TimeSelectContainer = () => {
 
   const isFocus = pathname === Mode.Focus;
 
-  const { times } = useSelector((state: RootState) => state.time);
+  const { times, mode } = useSelector((state: RootState) => state.time);
 
   const navigateHandler = () => {
     if (pathname === Mode.Focus) {
@@ -69,15 +70,18 @@ const TimeSelectContainer = () => {
   return (
     <Wrapper>
       <TimeAddForm
+        mode={mode}
         onClick={addTimeHandler}
         addTime={addTime}
         onChange={timeHandler}
       />
-      {times.map((time, idx) => (
-        <Fragment key={idx}>
-          <TimeButton time={time} onClick={handleSetEnd} />
-        </Fragment>
-      ))}
+      <>
+        {times.map((time, idx) => (
+          <Fragment key={idx}>
+            <TimeButton time={time} onClick={handleSetEnd} />
+          </Fragment>
+        ))}
+      </>
       <TimeButton time={isFocus ? 'Break' : 'Focus'} onClick={handleSetEnd} />
     </Wrapper>
   );
