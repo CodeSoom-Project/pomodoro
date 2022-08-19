@@ -1,8 +1,13 @@
+import { RootState } from 'store/reducer';
+
 import { render } from '@testing-library/react';
-import { times } from 'common/times';
+
 import { MemoryRouter } from 'react-router';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { initialState } from 'slice/time';
+import { retroSpectInitialState } from 'slice/retrospect';
 
 import App from './App';
 
@@ -11,8 +16,20 @@ jest.mock('react-redux');
 describe('App', () => {
   const dispatch = jest.fn();
 
+  const times = initialState.times;
+
   beforeEach(() => {
     (useDispatch as jest.Mock).mockImplementation(() => dispatch);
+
+    (useSelector as jest.Mock).mockImplementation(
+      (state: (arg: RootState) => void) =>
+        state({
+          time: {
+            ...initialState,
+          },
+          retrospect: retroSpectInitialState,
+        })
+    );
   });
 
   const renderApp = (path: string) => {

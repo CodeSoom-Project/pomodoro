@@ -1,13 +1,32 @@
+import { RootState } from 'store/reducer';
+
 import { render } from '@testing-library/react';
 
-import { times } from 'common/times';
 import { MemoryRouter } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+
+import { initialState } from 'slice/time';
+import { retroSpectInitialState } from 'slice/retrospect';
 
 import Focus from '.';
 
 jest.mock('react-redux');
 
 describe('Focus', () => {
+  const times = initialState.times;
+  beforeEach(() => {
+    (useSelector as jest.Mock).mockImplementation(
+      (state: (arg: RootState) => void) =>
+        state({
+          time: {
+            ...initialState,
+          },
+          retrospect: retroSpectInitialState,
+        })
+    );
+  });
+
   const renderFocus = () => {
     return render(
       <MemoryRouter>

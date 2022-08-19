@@ -7,10 +7,6 @@ type retrospect = {
   contents: string;
 };
 
-export interface Times {
-  times: string[];
-}
-
 export interface SelectableTime {
   time: string;
   onClick: (seconds: string) => void;
@@ -35,4 +31,10 @@ export interface RetrospectForm {
 export interface Retrospect {
   retrospect: retrospect;
   id: number;
+}
+
+export interface TimeAddFormType {
+  addTime: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: (time: string) => void;
 }
