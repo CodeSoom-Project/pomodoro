@@ -10,7 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './store/index';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>
