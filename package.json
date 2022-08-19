@@ -1,5 +1,5 @@
 {
-  "homepage": "https://codesoom-project.github.io/pomodoro",
+  "homepage": "https://pomodoro.codesoom.com",
   "name": "pomodoro",
   "version": "0.1.0",
   "private": true,
@@ -28,7 +28,7 @@
     "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -o upstream -d build"
+    "deploy": "echo 'pomodoro.codesoom.com' > ./build/CNAME && gh-pages -o upstream -d build"
   },
   "eslintConfig": {
     "extends": [
