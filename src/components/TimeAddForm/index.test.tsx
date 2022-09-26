@@ -1,5 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 
+import { Mode } from 'typings/time';
+
 import TimeAddForm from '.';
 
 describe('TimeAddForm', () => {
@@ -9,7 +11,12 @@ describe('TimeAddForm', () => {
 
   const renderTimeAddForm = () => {
     return render(
-      <TimeAddForm onChange={onChange} addTime={''} onClick={onClick} />
+      <TimeAddForm
+        onChange={onChange}
+        addTime={''}
+        onClick={onClick}
+        mode={Mode.Focus}
+      />
     );
   };
 
@@ -44,6 +51,29 @@ describe('TimeAddForm', () => {
       fireEvent.click(getByText('등록'));
 
       expect(onClick).toBeCalled();
+    });
+  });
+
+  describe('Mode가 Focus이면', () => {
+    it('배경컬러가 #6aa789가 됩니다.', () => {
+      const { container } = renderTimeAddForm();
+
+      expect(container).toHaveStyle('background: rgba(106, 167, 137');
+    });
+  });
+
+  describe('Mode가 Break이면', () => {
+    it('배경컬러가 #795a3e가 됩니다.', () => {
+      const { container } = render(
+        <TimeAddForm
+          onChange={onChange}
+          addTime={''}
+          onClick={onClick}
+          mode={Mode.Break}
+        />
+      );
+
+      expect(container).toHaveStyle('background : rgba(121, 90, 62)');
     });
   });
 });
