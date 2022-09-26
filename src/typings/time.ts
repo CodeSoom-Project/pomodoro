@@ -18,6 +18,7 @@ export interface TimerState {
   pauseTime: number;
   mode: Mode;
   isPause: boolean;
+  isOption: boolean;
   status: Status;
   times: string[];
 }

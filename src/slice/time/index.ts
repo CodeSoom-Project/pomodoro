@@ -12,6 +12,7 @@ export const initialState: TimerState = {
   status: Status.Initial,
   isPause: false,
   times: ['5', '10', '15', '20', '25'],
+  isOption: false,
 };
 
 const { actions, reducer } = createSlice({
@@ -75,6 +76,12 @@ const { actions, reducer } = createSlice({
         times: [...state.times, payload],
       };
     },
+    setIsOption: state => {
+      return {
+        ...state,
+        isOption: !state.isOption,
+      };
+    },
   },
 });
 
@@ -86,6 +93,7 @@ export const {
   setPause,
   setIsPause,
   setTimes,
+  setIsOption,
 } = actions;
 
 export default reducer;
