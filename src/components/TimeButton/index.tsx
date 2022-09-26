@@ -7,7 +7,7 @@ import { SelectableTime } from 'typings';
 const Button = styled.button({
   width: '5em',
 
-  margin: '1rem',
+  margin: '.5rem',
   padding: '2em 0',
 
   border: '6px solid #EDDFB3',
@@ -20,11 +20,7 @@ const Button = styled.button({
   color: '#CA955C',
 
   '&:hover': {
-    fontSize: '1.5rem',
-
     color: '#876445',
-
-    transition: 'all ease 0.4s',
   },
 });
 
