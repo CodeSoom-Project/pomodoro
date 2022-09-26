@@ -24,6 +24,7 @@ describe('TimeSelectContainer', () => {
         state({
           time: {
             ...initialState,
+            isOption: true,
           },
           retrospect: retroSpectInitialState,
         })
@@ -129,6 +130,29 @@ describe('TimeSelectContainer', () => {
       expect(dispatch).toBeCalledWith({
         type: 'time/setTimes',
         payload: '',
+      });
+    });
+  });
+
+  describe('options 버튼을 누르면', () => {
+    it('setIsOption 디스패치가 호출됩니다.', () => {
+      (useSelector as jest.Mock).mockImplementation(
+        (state: (arg: RootState) => void) =>
+          state({
+            time: {
+              ...initialState,
+              isOption: false,
+            },
+            retrospect: retroSpectInitialState,
+          })
+      );
+      const { getByText } = renderTimeSelectContainer({ path: '/focus' });
+
+      fireEvent.click(getByText('options'));
+
+      expect(dispatch).toBeCalledWith({
+        type: 'time/setIsOption',
+        payload: undefined,
       });
     });
   });

@@ -38,4 +38,6 @@ export interface TimeAddFormType {
   mode: Mode;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick: (time: string) => void;
+  isOption: boolean;
+  optionHandler: () => void;
 }

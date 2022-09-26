@@ -6,6 +6,7 @@ import reducer, {
   timer,
   initialState,
   setTimes,
+  setIsOption,
 } from '.';
 
 import { endTime } from 'fixtures/times';
@@ -100,6 +101,14 @@ describe('time', () => {
       const state = reducer(initialState, setIsPause(true));
 
       expect(state.isPause).toBe(true);
+    });
+  });
+
+  describe('setIsOption', () => {
+    it('옵션 상태를 핸들링합니다.', () => {
+      const state = reducer(initialState, setIsOption());
+
+      expect(state.isOption).toBe(true);
     });
   });
 

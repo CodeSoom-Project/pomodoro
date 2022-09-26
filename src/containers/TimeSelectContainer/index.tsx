@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducer';
 
-import { setMode, setTimes } from 'slice/time';
+import { setIsOption, setMode, setTimes } from 'slice/time';
 
 import { setEnd } from 'utils';
 
@@ -126,7 +126,9 @@ const TimeSelectContainer = () => {
 
   const isFocus = pathname === Mode.Focus;
 
-  const { times, mode } = useSelector((state: RootState) => state.time);
+  const { times, mode, isOption } = useSelector(
+    (state: RootState) => state.time
+  );
 
   const navigateHandler = () => {
     if (pathname === Mode.Focus) {
@@ -163,6 +165,10 @@ const TimeSelectContainer = () => {
     dispatch(setTimes(time));
   }, []);
 
+  const optionHandler = useCallback(() => {
+    dispatch(setIsOption());
+  }, [isOption]);
+
   return (
     <Wrapper>
       <TimeAddForm
@@ -170,6 +176,8 @@ const TimeSelectContainer = () => {
         onClick={addTimeHandler}
         addTime={addTime}
         onChange={timeHandler}
+        isOption={isOption}
+        optionHandler={optionHandler}
       />
       <ButtonWrapper>
         {times.map((time, idx) => (
