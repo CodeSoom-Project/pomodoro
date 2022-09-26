@@ -51,17 +51,25 @@ const TimeAddForm: FC<TimeAddFormType> = ({
   onChange,
   onClick,
   mode,
+  optionHandler,
+  isOption,
 }) => {
   return (
     <Wrapper mode={mode}>
-      <input
-        value={addTime}
-        placeholder="시간(분)을 입력해주세요."
-        type="text"
-        onChange={onChange}
-        maxLength={2}
-      />
-      <button onClick={() => onClick(addTime)}>등록</button>
+      {!isOption ? (
+        <button onClick={optionHandler}>options</button>
+      ) : (
+        <>
+          <input
+            value={addTime}
+            placeholder="시간(분)을 입력해주세요."
+            type="text"
+            onChange={onChange}
+            maxLength={2}
+          />
+          <button onClick={() => onClick(addTime)}>등록</button>
+        </>
+      )}
     </Wrapper>
   );
 };

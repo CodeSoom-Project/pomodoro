@@ -9,6 +9,8 @@ describe('TimeAddForm', () => {
 
   const onClick = jest.fn();
 
+  const optionHandler = jest.fn();
+
   const renderTimeAddForm = () => {
     return render(
       <TimeAddForm
@@ -16,6 +18,21 @@ describe('TimeAddForm', () => {
         addTime={''}
         onClick={onClick}
         mode={Mode.Focus}
+        isOption={true}
+        optionHandler={optionHandler}
+      />
+    );
+  };
+
+  const renderTimeAddFormWithOptionFalse = () => {
+    return render(
+      <TimeAddForm
+        onChange={onChange}
+        addTime={''}
+        onClick={onClick}
+        mode={Mode.Focus}
+        isOption={false}
+        optionHandler={optionHandler}
       />
     );
   };
@@ -41,6 +58,16 @@ describe('TimeAddForm', () => {
       fireEvent.change(inputEl, { target: { value: 'ㅇㅇ' } });
 
       expect(onChange).toBeCalled();
+    });
+  });
+
+  describe('옵션 버튼을 누르면', () => {
+    it('optionHandler가 호출됩니다.', () => {
+      const { getByText } = renderTimeAddFormWithOptionFalse();
+
+      fireEvent.click(getByText('options'));
+
+      expect(optionHandler).toBeCalled();
     });
   });
 
@@ -70,6 +97,8 @@ describe('TimeAddForm', () => {
           addTime={''}
           onClick={onClick}
           mode={Mode.Break}
+          isOption={true}
+          optionHandler={optionHandler}
         />
       );
 
