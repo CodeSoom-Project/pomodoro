@@ -4,7 +4,7 @@ import { OnlyChildren } from 'typings/styles';
 
 const HeaderStyle = styled.h1({
   paddingTop: '1em',
-  marginBottom: '1em',
+  marginBottom: '2rem',
 
   color: '#EDDFB3',
 
